@@ -1,6 +1,8 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard q = new QueenBoard(5);
+    QueenBoard q = new QueenBoard(10);
+    q.addQueen(2, 2);
+    System.out.println(q.TSHelper());
   }
 
   private int[][] board;
@@ -10,20 +12,54 @@ public class QueenBoard{
   }
 
   private boolean addQueen(int r, int c){
-    board[r][c] = -1
+    if (board[r][c] == 0){
+      board[r][c] = -1;
+      for (int idx = 0; idx < board.length; idx ++){
+        for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
+          if (!(idx == r && idx2 == c)){
+            if (idx == r) board[idx][idx2] ++;
+            else if (idx2 == c) board[idx][idx2] ++;
+            else if (idx - r == idx2 - c) board[idx][idx2] ++;
+            else if (Math.abs(idx + r) == Math.abs(idx2 - c)) board[idx][idx2] ++;
+            else if (Math.abs(idx - r) == Math.abs(idx2 + c)) board[idx][idx2] ++;
+          }
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
-  private boolean removeQueen(int r, int c){}
+  //private boolean removeQueen(int r, int c){}
 
   public boolean solve(){
-    for (int col = 0; col < board[0].length; col ++){
-      
-    }
+    return true;
   }
 
-  public int countSolutions(){}
+  //public int countSolutions(){}
 
-  public String toString()
+  public String toString(){
+    String output = "";
+    for (int idx = 0; idx < board.length; idx ++){
+      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
+        if (board[idx][idx2] == -1) output += "Q ";
+        else output += "_ ";
+      }
+      output += "\n";
+    }
+    return output.substring(0, output.length() - 1);
+  }
+
+  public String TSHelper(){
+    String output = "";
+    for (int idx = 0; idx < board.length; idx ++){
+      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
+        output += board[idx][idx2] + " ";
+      }
+      output += "\n";
+    }
+    return output.substring(0, output.length() - 1);
+  }
 
 
 
