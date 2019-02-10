@@ -1,8 +1,11 @@
 public class QueenBoard{
   public static void main(String[]args){
     QueenBoard eight = new QueenBoard(8);
-    eight.solveHelper(0, 0);
-    System.out.println(eight);
+    //eight.solve();
+    //System.out.println(eight);
+    QueenBoard two = new QueenBoard(2);
+    two.solveHelper(0, 0);
+    System.out.println(two);
   }
 
   private int[][] board;
@@ -47,7 +50,7 @@ public class QueenBoard{
     return false;
   }
 
-  //public boolean solve(){}
+  public boolean solve() {return solveHelper(0, 0);}
 
 
   //rowLQA and colLQA are the row and columns of the last queen added.
@@ -55,12 +58,13 @@ public class QueenBoard{
   //in endless recursion.
   private boolean solveHelper(int currentCol, int startRow){
     if (currentCol == board[0].length) return true;
-    else if (currentCol == -1) return false;
+    else if (currentCol < 0) return false;
     else {
       //boolean added = false;
       for (int idx = startRow; idx < board.length; idx ++){
         if (addQueen(idx, currentCol)) return solveHelper(currentCol + 1, 0);
       }
+      if (currentCol == 0) return false;
       int start = 0;
       for (int idx = 0; idx < board.length; idx ++){
         if (board[idx][currentCol - 1] == -1){
@@ -70,7 +74,6 @@ public class QueenBoard{
       }
       return solveHelper(currentCol - 1, start);
     }
-
   }
 
   //public int countSolutions(){}
@@ -85,6 +88,10 @@ public class QueenBoard{
       output += "\n";
     }
     return output.substring(0, output.length() - 1);
+  }
+
+  public void clearBoard(){
+    board = new int[board.length][board[0].length];
   }
 
   public String TSHelper(){
