@@ -15,15 +15,8 @@ public class QueenBoard{
     if (board[r][c] == 0){
       board[r][c] = -1;
       for (int idx = 0; idx < board.length; idx ++){
-        for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
-          if (!(idx == r && idx2 == c)){
-            if (idx == r) board[idx][idx2] ++;
-            else if (idx2 == c) board[idx][idx2] ++;
-            else if (idx - r == idx2 - c) board[idx][idx2] ++;
-            else if (Math.abs(idx + r) == Math.abs(idx2 - c)) board[idx][idx2] ++;
-            else if (Math.abs(idx - r) == Math.abs(idx2 + c)) board[idx][idx2] ++;
-          }
-        }
+        if (r + idx < board.length) board[r + idx][c] ++;
+        else if (c + idx < board[0].length) board[r][c + idx] ++;
       }
       return true;
     }
