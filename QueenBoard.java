@@ -1,11 +1,8 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard eight = new QueenBoard(8);
-    //eight.solve();
-    //System.out.println(eight);
-    QueenBoard two = new QueenBoard(2);
-    two.solveHelper(0, 0);
-    System.out.println(two);
+    QueenBoard test = new QueenBoard(4);
+    test.solve();
+    System.out.println(test);
   }
 
   private int[][] board;
