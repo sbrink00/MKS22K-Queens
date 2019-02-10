@@ -19,6 +19,10 @@ public class QueenBoard{
         if (r - idx >= 0) board[r - idx][c] ++;
         if (c + idx < board[0].length) board[r][c + idx] ++;
         if (c - idx >= 0) board[r][c - idx] ++;
+        if (r + idx < board.length && c + idx < board[0].length) board[r + idx][c + idx] ++;
+        if (r + idx < board.length && c - idx >= 0) board[r + idx][c - idx] ++;
+        if (c + idx < board.length && r - idx >= 0) board[r - idx][c + idx] ++;
+        if (r - idx >= 0 && c - idx >= 0) board[r - idx][c - idx] ++;
       }
       return true;
     }
