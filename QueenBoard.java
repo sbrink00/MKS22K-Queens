@@ -1,8 +1,8 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard q = new QueenBoard(10);
-    q.addQueen(2, 2);
-    System.out.println(q.TSHelper());
+    QueenBoard eight = new QueenBoard(8);
+    eight.solveHelper(0, 0);
+    System.out.println(eight);
   }
 
   private int[][] board;
@@ -29,10 +29,48 @@ public class QueenBoard{
     return false;
   }
 
-  //private boolean removeQueen(int r, int c){}
+  private boolean removeQueen(int r, int c){
+    if (board[r][c] == -1){
+      board[r][c] = 0;
+      for (int idx = 1; idx < board.length; idx ++){
+        if (r + idx < board.length) board[r + idx][c] --;
+        if (r - idx >= 0) board[r - idx][c] --;
+        if (c + idx < board[0].length) board[r][c + idx] --;
+        if (c - idx >= 0) board[r][c - idx] --;
+        if (r + idx < board.length && c + idx < board[0].length) board[r + idx][c + idx] --;
+        if (r + idx < board.length && c - idx >= 0) board[r + idx][c - idx] --;
+        if (c + idx < board.length && r - idx >= 0) board[r - idx][c + idx] --;
+        if (r - idx >= 0 && c - idx >= 0) board[r - idx][c - idx] --;
+      }
+      return true;
+    }
+    return false;
+  }
 
-  public boolean solve(){
-    return true;
+  //public boolean solve(){}
+
+
+  //rowLQA and colLQA are the row and columns of the last queen added.
+  //start row is where the for loop will start so that it doesn't get stuck
+  //in endless recursion.
+  private boolean solveHelper(int currentCol, int startRow){
+    if (currentCol == board[0].length) return true;
+    else if (currentCol == -1) return false;
+    else {
+      //boolean added = false;
+      for (int idx = startRow; idx < board.length; idx ++){
+        if (addQueen(idx, currentCol)) return solveHelper(currentCol + 1, 0);
+      }
+      int start = 0;
+      for (int idx = 0; idx < board.length; idx ++){
+        if (board[idx][currentCol - 1] == -1){
+          removeQueen(idx, currentCol - 1);
+          start = idx + 1;
+        }
+      }
+      return solveHelper(currentCol - 1, start);
+    }
+
   }
 
   //public int countSolutions(){}
