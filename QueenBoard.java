@@ -1,6 +1,6 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard test = new QueenBoard(4);
+    QueenBoard test = new QueenBoard(20);
     test.solve();
     System.out.println(test);
   }
@@ -73,7 +73,9 @@ public class QueenBoard{
     }
   }
 
-  //public int countSolutions(){}
+  public int countSolutions(){
+    if (!solve()) return true;
+  }
 
   public String toString(){
     String output = "";
