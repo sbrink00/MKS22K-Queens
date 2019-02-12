@@ -1,12 +1,10 @@
 public class QueenBoard{
   public static void main(String[]args){
     QueenBoard q = new QueenBoard(8);
-    q.addQueen(4, 4);
-    boolean solvable = q.solve();
-    System.out.println(solvable);
-    //System.out.println(q.countSolutionsHelper(0));
+    q.solve();
     System.out.println(q);
     q.clearBoard();
+    System.out.println(q.countSolutions());
     System.out.println(q);
   }
 
@@ -17,14 +15,22 @@ public class QueenBoard{
     board = new int[size][size];
   }
 
-  public boolean solve() {return solveHelper(0, 0);}
-  public int countSolutions() {return countSolutionsHelper(0);}
+  public boolean solve() {
+    throwException();
+    return solveHelper(0, 0);
+  }
+
+  public int countSolutions() {
+    throwException();
+    int output = countSolutionsHelper(0);
+    clearBoard();
+    return output;
+  }
 
   //start row is where the for loop will start so that it doesn't get stuck
   //in endless recursion.
   private boolean solveHelper(int currentCol, int startRow){
     if (board.length == 0) return true;
-    throwException();
     if (currentCol == board[0].length) return true;
     else if (currentCol < 0) return false;
     else {
@@ -48,7 +54,6 @@ public class QueenBoard{
 
   public int countSolutionsHelper(int col){
     if (board.length == 0) return 1;
-    throwException();
     if (col == board[0].length) return 1;
     else{
       int total = 0;
@@ -58,7 +63,6 @@ public class QueenBoard{
           removeQueen(idx, col);
         }
       }
-      clearBoard();
       return total;
     }
   }
