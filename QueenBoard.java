@@ -1,7 +1,7 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard q = new QueenBoard(8);
-    q.addQueen(4, 4);
+    QueenBoard q = new QueenBoard(0);
+    //q.addQueen(4, 4);
     boolean solvable = q.solve();
     System.out.println(solvable);
     //System.out.println(q.countSolutionsHelper(0));
@@ -13,6 +13,7 @@ public class QueenBoard{
   private int[][] board;
 
   public QueenBoard(int size){
+    if (size < 0) throw new IllegalArgumentException("size can't be less than 0");
     board = new int[size][size];
   }
 
@@ -22,8 +23,8 @@ public class QueenBoard{
   //start row is where the for loop will start so that it doesn't get stuck
   //in endless recursion.
   private boolean solveHelper(int currentCol, int startRow){
+    if (board.length == 0) return true;
     throwException();
-    if (n == 0) return 1;
     if (currentCol == board[0].length) return true;
     else if (currentCol < 0) return false;
     else {
@@ -46,8 +47,8 @@ public class QueenBoard{
   }
 
   public int countSolutionsHelper(int col){
+    if (board.length == 0) return 1;
     throwException();
-    if (n == 0) return 1;
     if (col == board[0].length) return 1;
     else{
       int total = 0;
@@ -63,13 +64,13 @@ public class QueenBoard{
   }
 
   public void clearBoard(){
-    board = new int[board.length][board[0].length];
+    board = new int[board.length][board.length];
   }
 
   public void throwException(){
     boolean allZeros = true;
     for (int idx = 0; idx < board[0].length; idx ++){
-      if (board[0][idx2] != 0) allZeros = false;
+      if (board[0][idx] != 0) allZeros = false;
     }
     if (!allZeros) throw new IllegalStateException();
   }
@@ -111,6 +112,7 @@ public class QueenBoard{
   }
 
   public String toString(){
+    if (board.length == 0) return "";
     String output = "";
     for (int idx = 0; idx < board.length; idx ++){
       for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
@@ -125,6 +127,7 @@ public class QueenBoard{
   //a debug toString so I can see the values of every square,
   //rather than just whether or not there's a queen there.
   public String TSHelper(){
+    if (board.length == 0) return "";
     String output = "";
     for (int idx = 0; idx < board.length; idx ++){
       for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
