@@ -1,7 +1,7 @@
 public class QueenBoard{
   public static void main(String[]args){
     QueenBoard q = new QueenBoard(8);
-    //q.addQueen(0, 0);
+    q.addQueen(4, 4);
     boolean solvable = q.solve();
     System.out.println(solvable);
     //System.out.println(q.countSolutionsHelper(0));
@@ -23,6 +23,7 @@ public class QueenBoard{
   //in endless recursion.
   private boolean solveHelper(int currentCol, int startRow){
     throwException();
+    if (n == 0) return 1;
     if (currentCol == board[0].length) return true;
     else if (currentCol < 0) return false;
     else {
@@ -46,6 +47,7 @@ public class QueenBoard{
 
   public int countSolutionsHelper(int col){
     throwException();
+    if (n == 0) return 1;
     if (col == board[0].length) return 1;
     else{
       int total = 0;
@@ -66,10 +68,8 @@ public class QueenBoard{
 
   public void throwException(){
     boolean allZeros = true;
-    for (int idx = 0; idx < board.length; idx ++){
-      for (int idx2 = 0; idx2 < board[0].length; idx2 ++){
-        if (board[idx][idx2] != 0) allZeros = false;
-      }
+    for (int idx = 0; idx < board[0].length; idx ++){
+      if (board[0][idx2] != 0) allZeros = false;
     }
     if (!allZeros) throw new IllegalStateException();
   }
