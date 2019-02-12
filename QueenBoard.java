@@ -1,7 +1,7 @@
 public class QueenBoard{
   public static void main(String[]args){
-    QueenBoard q = new QueenBoard(0);
-    //q.addQueen(4, 4);
+    QueenBoard q = new QueenBoard(8);
+    q.addQueen(4, 4);
     boolean solvable = q.solve();
     System.out.println(solvable);
     //System.out.println(q.countSolutionsHelper(0));
@@ -72,7 +72,7 @@ public class QueenBoard{
     for (int idx = 0; idx < board[0].length; idx ++){
       if (board[0][idx] != 0) allZeros = false;
     }
-    if (!allZeros) throw new IllegalStateException();
+    if (!allZeros) throw new IllegalStateException("board must be empty");
   }
 
   private boolean addQueen(int r, int c){
