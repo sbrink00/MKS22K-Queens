@@ -1,13 +1,10 @@
 public class QueenBoard{
   public static void main(String[]args){
     QueenBoard q = new QueenBoard(8);
-    q.solveHelper2(0);
-    System.out.println(q);
+    boolean solvable = q.solveHelper2(0);
+    System.out.println(solvable);
     //System.out.println(q.countSolutionsHelper(0));
-    //for (int idx = 14; idx < 15; idx ++){
-    //  QueenBoard chess = new QueenBoard(idx);
-    //  System.out.println(idx + ": " + chess.countSolutionsHelper(0));
-    //}
+    System.out.println(q);
   }
 
   private int[][] board;
@@ -52,6 +49,20 @@ public class QueenBoard{
     return false;
   }
 
+  public int countSolutionsHelper(int col){
+    if (col == board[0].length) return 1;
+    else{
+      int total = 0;
+      for (int idx = 0; idx < board.length; idx ++){
+        if (addQueen(idx, col)){
+          total += countSolutionsHelper(col + 1);
+          removeQueen(idx, col);
+        }
+      }
+      return total;
+    }
+  }
+
   public boolean solve() {return solveHelper(0, 0);}
 
 
@@ -83,13 +94,13 @@ public class QueenBoard{
     else{
       for (int idx = 0; idx < board.length; idx ++){
         if (addQueen(idx, col)) return solveHelper2(col + 1);
-        else  removeQueen(idx, col);
+        removeQueen(idx, col);
       }
     }
     return false;
   }
 
-  public int countSolutionsHelper(int col){
+  /*public int countSolutionsHelper(int col){
     if (col == board[0].length) return 1;
     else{
       int total = 0;
@@ -101,7 +112,7 @@ public class QueenBoard{
       }
       return total;
     }
-  }
+  }*/
 
   public String toString(){
     String output = "";
